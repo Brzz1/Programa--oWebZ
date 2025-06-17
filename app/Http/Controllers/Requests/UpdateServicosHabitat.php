@@ -22,20 +22,17 @@ class UpdateConsultaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'tipo' => 'required|string|max:255',
-            'horarioInicio' => 'required|date',
-            'horarioEstimado' => 'required|date',
-            'qtdPessoas' => 'required|int',
+            'habitatId'=>'required|string|max:255',
+            'servicosId'=>'required|string|max:255',
         ];
         
     }
 
     public function messages(){
         return [
-            'tipo.required'=>'O tipo de serviço deve ser informado!',
-            'horarioInicio.required'=>'O horario de inicio deve ser informado!',
-            'horarioEstimado.required'=>'O horario estimado deve ser informado!',
-            'qtdPessoas.required'=>'A quantidade de pessoas deve ser informado!',
+            'habitatId.required'=>'O id do habitat deve ser informado!',
+            'servicosId.required'=>'O id do servico deve ser informado!',
+
         ];
     }
 }

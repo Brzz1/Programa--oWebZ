@@ -2,16 +2,16 @@ import React, { Fragment, useEffect, useState } from 'react'
 import axiosClient from '../../axiosClient';
 import { useNavigate, useParams } from 'react-router-dom';
 
-function CuidadorFormShow()
+function ServicosFormShow()
 {
     const navigate = useNavigate();
 
-    const [cuidador, setCuidador] = useState({
+    const [servicos, setServicos] = useState({
         id:null,
-        nome:'',
-        email:'',
-        CPF:'',
-        contato:'',
+        tipo:'',
+        horarioInicio:'',
+        horarioEstimado:'',
+        qtdPessoas:'',
         endereco:'',
     });
 
@@ -21,9 +21,9 @@ function CuidadorFormShow()
     if (id)
     {
         useEffect(() => {
-            axiosClient.get(`/cuidador/show/${id}`)
+            axiosClient.get(`/servicos/show/${id}`)
             .then(({data}) =>{
-                setCuidador(data.data);
+                setServicos(data.data);
                 console.log(data.data);
             }).catch((error)=>{
                 console.log(error);
@@ -34,21 +34,20 @@ function CuidadorFormShow()
     // Função do tipo Anônima
     const onSubmit = (e) => {
         e.preventDefault();
-        navigate('/cuidador/index');
+        navigate('/servicos/index');
     }
     
     return(
         <Fragment>
             <div className="display">
                 <div className="card animated fadeInDown">
-                    {cuidador.id && <h1>Nome do Cuidador: { cuidador.nome}</h1>}
+                    {servicos.id && <h1>tipo de servicos: { servicos.tipo}</h1>}
 
                 <form>
-                    <input defaultValue={cuidador.nome} placeholder="Nome do cuidador" readOnly={true}/>
-                    <input defaultValue={cuidador.email} placeholder="Email do cuidador" readOnly={true}/>
-                    <input defaultValue={cuidador.CPF} placeholder="CPF do cuidador" readOnly={true}/>
-                    <input defaultValue={cuidador.contato} placeholder="Contato do cuidador" readOnly={true}/>
-                    <input defaultValue={cuidador.endereco} placeholder="Endereco do cuidador" readOnly={true}/>
+                    <input defaultValue={servicos.tipo} placeholder="tipo do servico" readOnly={true}/>
+                    <input defaultValue={servicos.horarioInicio} placeholder="horario de inicio do servico" readOnly={true}/>
+                    <input defaultValue={servicos.horarioEstimado} placeholder="horario estimado do servico" readOnly={true}/>
+                    <input defaultValue={servicos.qtdPessoas} placeholder="quantidade de pessoas do servico" readOnly={true}/>
                     <button
                         className="btn"
                         onClick={(e)=>onSubmit(e)}>
@@ -61,4 +60,4 @@ function CuidadorFormShow()
     )
 }
 
-export default CuidadorFormShow
+export default ServicosFormShow

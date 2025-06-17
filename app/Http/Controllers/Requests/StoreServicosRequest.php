@@ -22,11 +22,10 @@ class StoreConsultaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'dataHora'=>'required|string|max:6',
-            'status'=>'required|string|max:20',
-            'motivo'=>'required|string|max:200',
-            'pacienteID'=>'required|integer|exists:pacientes,id',
-            'medicoID'=>'required|integer|exists:medicos,id',
+            'tipo' => 'required|string|max:255',
+            'horarioInicio' => 'required|date',
+            'horarioEstimado' => 'required|date',
+            'qtdPessoas' => 'required|int',
         ];
     }
 }

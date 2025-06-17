@@ -2,9 +2,9 @@ import {Fragment, useEffect, useState} from "react"
 import axiosClient from "../../axiosClient";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import Input from "../../components/input/Input";
-import { useValidarDadoscuidador } from "../../rules/CuidadorValidationRules";
+import { useValidarDadosServicos } from "../../rules/ServicosValidationRules";
 
-export default function CuidadorFormUpdate(){
+export default function ServicosFormUpdate(){
 
     const navigate = useNavigate();
 
@@ -15,13 +15,13 @@ export default function CuidadorFormUpdate(){
             formValid,
             handleBlurField,
             handleChangeField,
-    } = useValidarDadosCuidador();
+    } = useValidarDadosServicos();
 
     const {id} = useParams();
 
     useEffect(() => {
         if (id) {
-            axiosClient.get(`/cuidador/show/${id}`)
+            axiosClient.get(`/servicos/show/${id}`)
                 .then(({ data }) => {
                     setModel(data.data);
                 }).catch((error) => {
@@ -36,17 +36,17 @@ export default function CuidadorFormUpdate(){
 
         if(formValid()){
             const updatedModel = { ...model };
-            axiosClient.put(`/cuidador/update/${id}`, updatedModel)
+            axiosClient.put(`/servicos/update/${id}`, updatedModel)
                 .then(()=>{
                     setModel({});
-                    console.log("Cuidador alterado com sucesso");
-                    navigate('/cuidador/index')
+                    console.log("servico alterado com sucesso");
+                    navigate('/servicos/index')
             }).catch((error)=>{
                 console.log(error);
             });
         }
         else{
-            console.log("Não foi possível alterar o Cuidador");
+            console.log("Não foi possível alterar o servico");
         }
 
     }
@@ -55,72 +55,60 @@ export default function CuidadorFormUpdate(){
         <Fragment>
             <div className="display">
                 <div className="card animated fadeinDown">
-                    { model.id && <h1>Alteração do Cuidador</h1> }
+                    { model.id && <h1>Alteração do Servico</h1> }
                     <form onSubmit={(e)=>onSubmit(e)}>
                         <div className="p-20">
                             <Input 
-                                id="nome"
+                                id="tipo"
                                 type="text"
-                                value={model.nome}
-                                placeholder="Nome do Cuidador"
+                                value={model.tipo}
+                                placeholder="tipo do servico"
                                 handleChangeField={handleChangeField}
                                 handleBlurField={handleBlurField}
-                                error={error.nome}
-                                mensagem={error.nomeMensagem}
+                                error={error.tipo}
+                                mensagem={error.tipoMensagem}
                             />
                         </div>
                         <div className ="p-20">
                             <Input 
-                                id="email"
+                                id="horarioInicio"
                                 type="text"
-                                value={model.email}
-                                placeholder="Email do Cuidador"
+                                value={model.horarioInicio}
+                                placeholder="horario de inicio do servico"
                                 handleChangeField={handleChangeField}
                                 handleBlurField={handleBlurField}
-                                error={error.email}
-                                mensagem={error.emailMensagem}
+                                error={error.horarioInicio}
+                                mensagem={error.horarioInicioMensagem}
                             />
                         </div>
                         <div className ="p-20">
                             <Input 
-                                id="CPF"
+                                id="horarioEstimado"
                                 type="text"
-                                value={model.CPF}
-                                placeholder="CPF do Cuidador"
+                                value={model.horarioEstimado}
+                                placeholder="horario estimado do servico"
                                 handleChangeField={handleChangeField}
                                 handleBlurField={handleBlurField}
-                                error={error.CPF}
-                                mensagem={error.CPFMensagem}
+                                error={error.horarioEstimado}
+                                mensagem={error.horarioEstimadoMensagem}
                             />
                         </div>
                         <div className ="p-20">
                             <Input 
-                                id="contato"
+                                id="qtdPessoas"
                                 type="text"
-                                value={model.contato}
-                                placeholder="Contato do Cuidador"
+                                value={model.qtdPessoas}
+                                placeholder="quantidade de pessoas do servico"
                                 handleChangeField={handleChangeField}
                                 handleBlurField={handleBlurField}
-                                error={error.contato}
-                                mensagem={error.contatoMensagem}
-                            />
-                        </div>
-                        <div className ="p-20">
-                            <Input 
-                                id="endereco"
-                                type="text"
-                                value={model.endereco}
-                                placeholder="Endereco do Cuidador"
-                                handleChangeField={handleChangeField}
-                                handleBlurField={handleBlurField}
-                                error={error.endereco}
-                                mensagem={error.enderecoMensagem}
+                                error={error.qtdPessoas}
+                                mensagem={error.qtdPessoasMensagem}
                             />
                         </div>
                         <button className="btn btn-edit">
                             Salvar
                         </button>
-                        <Link type="button" className="btn btn-cancel" to="/cuidador/index">
+                        <Link type="button" className="btn btn-cancel" to="/servicos/index">
                             Cancelar
                         </Link>
 

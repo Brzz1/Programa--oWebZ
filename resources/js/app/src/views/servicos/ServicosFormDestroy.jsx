@@ -2,17 +2,16 @@ import React, { Fragment, useEffect, useState } from 'react'
 import axiosClient from '../../axiosClient';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
-function CuidadorFormDestroy()
+function ServicosFormDestroy()
 {
     const navigate = useNavigate();
 
-    const [cuidador, setCuidador] = useState({
+    const [servicos, setServicos] = useState({
         id:null,
-        nome:'',
-        CPF:'',
-        email:'',
-        contato:'',
-        endereco:'',
+        tipo:'',
+        rio:'',
+        rio:'',
+        qtdPessoas:'',
     });
 
     const {id} = useParams();
@@ -20,9 +19,9 @@ function CuidadorFormDestroy()
     if (id)
     {
         useEffect(() => {
-            axiosClient.get(`/cuidador/show/${id}`)
+            axiosClient.get(`/servicos/show/${id}`)
             .then(({data}) =>{
-                setCuidador(data.data);
+                setServicos(data.data);
                 console.log(data.data);
             }).catch((error)=>{
                 console.log(error);
@@ -33,11 +32,11 @@ function CuidadorFormDestroy()
     // Função do tipo Anônima
     const onSubmit = (e) => {
         e.preventDefault();
-        axiosClient.delete(`/cuidador/destroy/${id}`)
+        axiosClient.delete(`/servicos/destroy/${id}`)
             .then(() =>{
-                setCuidador({});
-                console.log('cuidador excluído com sucesso');
-                navigate('/cuidador/index')
+                setServicos({});
+                console.log('servico excluído com sucesso');
+                navigate('/servicos/index')
             }).catch((error)=>{
                 console.log(error);
             })
@@ -47,19 +46,18 @@ function CuidadorFormDestroy()
         <Fragment>
             <div className="display">
                 <div className="card animated fadeinDown">
-                    {cuidador.id && <h1>Exclusão de Cuidador: { cuidador.nome}</h1>}
+                    {servicos.id && <h1>Exclusão de servicos: { servicos.tipo}</h1>}
 
                     <form onSubmit={(e)=>onSubmit(e)}>
-                        <input defaultValue={cuidador.nome} placeholder="Nome do cuidador" readOnly={true}/>
-                        <input defaultValue={cuidador.CPF} placeholder="CPF do cuidador" readOnly={true}/>
-                        <input defaultValue={cuidador.email} placeholder="Email do cuidador" readOnly={true}/>
-                        <input defaultValue={cuidador.contato} placeholder="Contato do cuidador" readOnly={true}/>
-                        <input defaultValue={cuidador.endereco} placeholder="Endereco do cuidador" readOnly={true}/>
+                        <input defaultValue={servicos.tipo} placeholder="tipo do servico" readOnly={true}/>
+                        <input defaultValue={servicos.horarioInicio} placeholder="horario de inicio do servico" readOnly={true}/>
+                        <input defaultValue={servicos.horarioEstimado} placeholder="horario estimado do servico" readOnly={true}/>
+                        <input defaultValue={servicos.qtdPessoas} placeholder="quantidade de pessoas do servico" readOnly={true}/>
                         <button className="btn btn-delete">Excluir</button>
                         <Link
                             type='button' 
                             className='btn btn-cancel'
-                            to='/cuidador/index'>
+                            to='/servicos/index'>
                                 Cancelar
                         </Link>
                     </form>
@@ -71,4 +69,4 @@ function CuidadorFormDestroy()
     )
 }
 
-export default CuidadorFormDestroy
+export default ServicosFormDestroy

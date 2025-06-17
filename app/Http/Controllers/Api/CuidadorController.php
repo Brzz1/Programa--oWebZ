@@ -21,7 +21,7 @@ class CuidadorController extends Controller
         $search = $request->get('search', ''); // Pesquisa
 
         // Seleciona os dados do usuário
-        $query = Cuidador::select('id', 'nome', 'CPF', 'dataNascimento', 'contato', 'endereco')
+        $query = Cuidador::select('id', 'nome', 'CPF', 'email', 'contato', 'endereco')
             ->whereNull('deleted_at')
             ->orderBy($props, $dir);
         
@@ -58,7 +58,7 @@ class CuidadorController extends Controller
         $validator = Validator::make($request->all(),[
             'nome' => 'required|string|max:255',
             'CPF' => 'required|string|max:11',
-            'dataNascimento' => 'required|date',
+            'email' => 'required|string|email|max:255|unique:cuidador,email',
             'contato' => 'required|string|max:15',
             'endereco' => 'required|string|endereco|max:255',
         ]);
@@ -74,7 +74,7 @@ class CuidadorController extends Controller
         $data = Cuidador::create([
             'nome' => $request->nome,
             'CPF' => $request->CPF,
-            'dataNascimento' => $request->dataNascimento,
+            'email' => $request->email,
             'contato' => $request->contato,
             'endereco' => $request->endereco,
 
@@ -119,7 +119,7 @@ class CuidadorController extends Controller
         $validator = Validator::make($request->all(),[
             'nome' => 'required|string|max:255',
             'CPF' => 'required|string|max:11',
-            'dataNascimento' => 'required|date',
+            'email' => 'required|string|email|max:255|unique:cuidador,email',
             'contato' => 'required|string|max:15',
             'endereco' => 'required|string|endereco|max:255'.$id,
         ]);
@@ -147,7 +147,7 @@ class CuidadorController extends Controller
         // Atualização do dados do Usuário
         $data->nome = $request->nome ?? $data->nome; 
         $data->CPF = $request->CPF ?? $data->CPF;
-        $data->dataNascimento = $request->dataNascimento ?? $data->dataNascimento;
+        $data->email = $request->email ?? $data->email;
         $data->contato = $request->contato ?? $data->contato;
         $data->endereco = $request->endereco ?? $data->endereco;
 

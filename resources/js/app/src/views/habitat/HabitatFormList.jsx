@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react'
 import axiosClient from '../../axiosClient';
 import { Link } from 'react-router-dom';
 
-export default function CuidadorFormList()
+export default function HabitatFormList()
 {
-    const [cuidadors, setCuidadors] = useState([]);
+    const [habitats, setHabitats] = useState([]);
 
-    const getCuidadors = () => {
+    const getHabitats = () => {
         axiosClient
-            .get('/cuidador/index')
+            .get('/habitat/index')
             .then(({data}) => {
-                setCuidadors(data.data);
+                setHabitats(data.data);
             })
             .catch((error)=>{
                 console.log(error);
@@ -18,7 +18,7 @@ export default function CuidadorFormList()
     }
 
     useEffect(() => {
-        getCuidadors();
+        getHabitats();
     }, []);
 
     return(
@@ -30,39 +30,33 @@ export default function CuidadorFormList()
                     alignItems:'center'
                 }}>
                     <h1>Médicos</h1> 
-                    <Link to="/cuidador/store" className="btn-add">Store</Link>
+                    <Link to="/habitat/store" className="btn-add">Store</Link>
                 </div>
                 <table>
                     <thead>
                         <tr>
                             <th className="col-id">Id</th>
-                            <th className="col-nome">Nome</th>
-                            <th className="col-email">email</th>
-                            <th className="col-CPF">CPF</th>
-                            <th className="col-contato">contato</th>
-                            <th className="col-endereco">endereco</th>
+                            <th className="col-tipo">tipo</th>
+                            <th className="col-tamanho">tamanho</th>
                             <th className='center actions' colSpan={3}>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            cuidadors.length > 0 ? (
-                                cuidadors && cuidadors.map((cuidador) => (
-                                    <tr key={cuidador.id}>
-                                        <td>{cuidador.id}</td>
-                                        <td>{cuidador.nome}</td>
-                                        <td>{cuidador.email}</td>
-                                        <td>{cuidador.cpf}</td>
-                                        <td>{cuidador.contato}</td>
-                                        <td>{cuidador.endereco}</td>
+                            habitats.length > 0 ? (
+                                habitats && habitats.map((habitat) => (
+                                    <tr key={habitat.id}>
+                                        <td>{habitat.id}</td>
+                                        <td>{habitat.tipo}</td>
+                                        <td>{habitat.tamanho}</td>
                                         <td className="center actions">
-                                            <Link className="btn-show" to={`/cuidador/show/${cuidador.id}`}>Show</Link>
+                                            <Link className="btn-show" to={`/habitat/show/${habitat.id}`}>Show</Link>
                                         </td>
                                         <td className="center actions">
-                                            <Link className="btn-edit" to={`/cuidador/update/${cuidador.id}`}>Update</Link>
+                                            <Link className="btn-edit" to={`/habitat/update/${habitat.id}`}>Update</Link>
                                         </td>  
                                         <td className="center actions">
-                                            <Link className="btn-delete" to={`/cuidador/destroy/${cuidador.id}`}>Destroy</Link>
+                                            <Link className="btn-delete" to={`/habitat/destroy/${habitat.id}`}>Destroy</Link>
                                         </td> 
                                     </tr>
                                 ))

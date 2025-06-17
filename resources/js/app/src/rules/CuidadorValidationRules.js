@@ -35,10 +35,10 @@ const CuidadorValidationRules = {
       return mensagens;
   },
 
-  dataNascimento:(dataNascimento)=>{
+  email:(email)=>{
     let mensagens = [];
-    if (!dataNascimento || dataNascimento.trim().length === 0){
-        mensagens.push('Obrigatório informar a data de nascimento do cuidador');
+    if (!email || email.trim().length === 0){
+        mensagens.push('Obrigatório informar o email do cuidador');
     }
     return mensagens;
   },

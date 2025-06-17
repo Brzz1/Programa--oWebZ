@@ -2,14 +2,14 @@ import React, { Fragment, useEffect, useState } from 'react'
 import axiosClient from '../../axiosClient';
 import { useNavigate, useParams } from 'react-router-dom';
 
-function CuidadorFormShow()
+function HabitatFormShow()
 {
     const navigate = useNavigate();
 
-    const [cuidador, setCuidador] = useState({
+    const [habitat, setHabitat] = useState({
         id:null,
-        nome:'',
-        email:'',
+        tipo:'',
+        tamanho:'',
         CPF:'',
         contato:'',
         endereco:'',
@@ -21,9 +21,9 @@ function CuidadorFormShow()
     if (id)
     {
         useEffect(() => {
-            axiosClient.get(`/cuidador/show/${id}`)
+            axiosClient.get(`/habitat/show/${id}`)
             .then(({data}) =>{
-                setCuidador(data.data);
+                setHabitat(data.data);
                 console.log(data.data);
             }).catch((error)=>{
                 console.log(error);
@@ -34,21 +34,18 @@ function CuidadorFormShow()
     // Função do tipo Anônima
     const onSubmit = (e) => {
         e.preventDefault();
-        navigate('/cuidador/index');
+        navigate('/habitat/index');
     }
     
     return(
         <Fragment>
             <div className="display">
                 <div className="card animated fadeInDown">
-                    {cuidador.id && <h1>Nome do Cuidador: { cuidador.nome}</h1>}
+                    {habitat.id && <h1>tipo do Habitat: { habitat.tipo}</h1>}
 
                 <form>
-                    <input defaultValue={cuidador.nome} placeholder="Nome do cuidador" readOnly={true}/>
-                    <input defaultValue={cuidador.email} placeholder="Email do cuidador" readOnly={true}/>
-                    <input defaultValue={cuidador.CPF} placeholder="CPF do cuidador" readOnly={true}/>
-                    <input defaultValue={cuidador.contato} placeholder="Contato do cuidador" readOnly={true}/>
-                    <input defaultValue={cuidador.endereco} placeholder="Endereco do cuidador" readOnly={true}/>
+                    <input defaultValue={habitat.tipo} placeholder="Tipo do habitat" readOnly={true}/>
+                    <input defaultValue={habitat.tamanho} placeholder="Tamanho do habitat" readOnly={true}/>
                     <button
                         className="btn"
                         onClick={(e)=>onSubmit(e)}>
@@ -61,4 +58,4 @@ function CuidadorFormShow()
     )
 }
 
-export default CuidadorFormShow
+export default HabitatFormShow

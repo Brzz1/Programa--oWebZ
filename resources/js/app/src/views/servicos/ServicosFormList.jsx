@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react'
 import axiosClient from '../../axiosClient';
 import { Link } from 'react-router-dom';
 
-export default function CuidadorFormList()
+export default function ServicosFormList()
 {
-    const [cuidadors, setCuidadors] = useState([]);
+    const [servicoss, setServicos] = useState([]);
 
-    const getCuidadors = () => {
+    const getServicos = () => {
         axiosClient
-            .get('/cuidador/index')
+            .get('/servicos/index')
             .then(({data}) => {
-                setCuidadors(data.data);
+                setServicos(data.data);
             })
             .catch((error)=>{
                 console.log(error);
@@ -18,7 +18,7 @@ export default function CuidadorFormList()
     }
 
     useEffect(() => {
-        getCuidadors();
+        getServicos();
     }, []);
 
     return(
@@ -30,39 +30,38 @@ export default function CuidadorFormList()
                     alignItems:'center'
                 }}>
                     <h1>Médicos</h1> 
-                    <Link to="/cuidador/store" className="btn-add">Store</Link>
+                    <Link to="/servicos/store" className="btn-add">Store</Link>
                 </div>
                 <table>
                     <thead>
                         <tr>
                             <th className="col-id">Id</th>
-                            <th className="col-nome">Nome</th>
-                            <th className="col-email">email</th>
-                            <th className="col-CPF">CPF</th>
-                            <th className="col-contato">contato</th>
+                            <th className="col-tipo">tipo</th>
+                            <th className="col-horarioInicio">horarioInicio</th>
+                            <th className="col-horarioEstimado">horarioEstimado</th>
+                            <th className="col-qtdPessoas">qtdPessoas</th>
                             <th className="col-endereco">endereco</th>
                             <th className='center actions' colSpan={3}>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            cuidadors.length > 0 ? (
-                                cuidadors && cuidadors.map((cuidador) => (
-                                    <tr key={cuidador.id}>
-                                        <td>{cuidador.id}</td>
-                                        <td>{cuidador.nome}</td>
-                                        <td>{cuidador.email}</td>
-                                        <td>{cuidador.cpf}</td>
-                                        <td>{cuidador.contato}</td>
-                                        <td>{cuidador.endereco}</td>
+                            servicoss.length > 0 ? (
+                                servicoss && servicoss.map((servicos) => (
+                                    <tr key={servicos.id}>
+                                        <td>{servicos.id}</td>
+                                        <td>{servicos.tipo}</td>
+                                        <td>{servicos.horarioInicio}</td>
+                                        <td>{servicos.horarioEstimado}</td>
+                                        <td>{servicos.qtdPessoas}</td>
                                         <td className="center actions">
-                                            <Link className="btn-show" to={`/cuidador/show/${cuidador.id}`}>Show</Link>
+                                            <Link className="btn-show" to={`/servicos/show/${servicos.id}`}>Show</Link>
                                         </td>
                                         <td className="center actions">
-                                            <Link className="btn-edit" to={`/cuidador/update/${cuidador.id}`}>Update</Link>
+                                            <Link className="btn-edit" to={`/servicos/update/${servicos.id}`}>Update</Link>
                                         </td>  
                                         <td className="center actions">
-                                            <Link className="btn-delete" to={`/cuidador/destroy/${cuidador.id}`}>Destroy</Link>
+                                            <Link className="btn-delete" to={`/servicos/destroy/${servicos.id}`}>Destroy</Link>
                                         </td> 
                                     </tr>
                                 ))

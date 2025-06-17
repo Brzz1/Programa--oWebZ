@@ -2,9 +2,9 @@ import React, { Fragment} from 'react'
 import axiosClient from '../../axiosClient';
 import { Link, useNavigate} from 'react-router-dom';
 import Input from '../../components/input/Input';
-import { useValidarDadoscuidador} from '../../rules/CuidadorValidationRules';
+import { useValidarDadosServicos} from '../../rules/ServicosValidationRules';
 
-function CuidadorFormStore()
+function ServicosFormStore()
 {
     const navigate = useNavigate();
 
@@ -15,18 +15,18 @@ function CuidadorFormStore()
         formValid,
         handleChangeField,
         handleBlurField
-    } = useValidarDadosCuidador("create");
+    } = useValidarDadosServicos("create");
 
     // Função do tipo Anônima
     const onSubmit = (e) => {
         e.preventDefault();
         if (formValid()) {
             console.log("Formulário válido");
-            axiosClient.post(`/cuidador/store`, model)
+            axiosClient.post(`/servicos/store`, model)
             .then(() =>{
                 setModel({});
-                console.log('Cuidador incluído com sucesso');
-                navigate('/cuidador/index')
+                console.log('servico incluído com sucesso');
+                navigate('/servicos/index')
             }).catch((error)=>{
                 console.log(error);
             })
@@ -37,74 +37,62 @@ function CuidadorFormStore()
         <Fragment>
             <div className="display">
                 <div className="card animated fadeinDown">
-                    <h1>Inclusão de Cuidador</h1>
+                    <h1>Inclusão de servicos</h1>
 
                     <form onSubmit={(e)=>onSubmit(e)}>
                         <div className ="p-20"> 
                             <Input 
-                                id="nome"
+                                id="tipo"
                                 type="text"
-                                value={model.nome}
-                                placeholder="Nome do Cuidador"
+                                value={model.tipo}
+                                placeholder="tipo de servico"
                                 handleChangeField={handleChangeField}
                                 handleBlurField={handleBlurField}
-                                error={error.nome}
-                                mensagem={error.nomeMensagem}
+                                error={error.tipo}
+                                mensagem={error.tipoMensagem}
                             />
                         </div>
                         <div className ="p-20">
                             <Input 
-                                id="email"
+                                id="horarioInicio"
                                 type="text"
-                                value={model.email}
-                                placeholder="Email do Cuidador"
+                                value={model.horarioInicio}
+                                placeholder="horario de inicio do servico"
                                 handleChangeField={handleChangeField}
                                 handleBlurField={handleBlurField}
-                                error={error.email}
-                                mensagem={error.emailMensagem}
+                                error={error.horarioInicio}
+                                mensagem={error.horarioInicioMensagem}
                             />
                         </div>
                         <div className ="p-20">
                             <Input 
-                                id="CPF"
+                                id="horarioEstimado"
                                 type="text"
-                                value={model.CPF}
-                                placeholder="CPF do Cuidador"
+                                value={model.horarioEstimado}
+                                placeholder="horario estimado do servico"
                                 handleChangeField={handleChangeField}
                                 handleBlurField={handleBlurField}
-                                error={error.CPF}
-                                mensagem={error.CPFMensagem}
+                                error={error.horarioEstimado}
+                                mensagem={error.horarioEstimadoMensagem}
                             />
                         </div>
                         <div className ="p-20">
                             <Input 
-                                id="contato"
+                                id="qtdPessoas"
                                 type="text"
-                                value={model.contato}
-                                placeholder="Contato do Cuidador"
+                                value={model.qtdPessoas}
+                                placeholder="quantidade de pessoas do servico"
                                 handleChangeField={handleChangeField}
                                 handleBlurField={handleBlurField}
-                                error={error.contato}
-                                mensagem={error.contatoMensagem}
+                                error={error.qtdPessoas}
+                                mensagem={error.qtdPessoasMensagem}
                             />
                         </div>
-                        <div className ="p-20">
-                            <Input 
-                                id="endereco"
-                                type="text"
-                                value={model.endereco}
-                                placeholder="Endereco do Cuidador"
-                                handleChangeField={handleChangeField}
-                                handleBlurField={handleBlurField}
-                                error={error.endereco}
-                                mensagem={error.enderecoMensagem}
-                            />
-                        </div>
-                        <button className="btn btn-add" to="/cuidador/index">Salvar</button>
+                        <button className="btn btn-add" to="/servicos/index">Salvar</button>
                         <Link
                             type='button' 
                             className='btn btn-cancel'
-                            to='/cuidador/index'>
+                            to='/servicos/index'>
                                 Cancelar
                         </Link>
                     </form>
@@ -114,4 +102,4 @@ function CuidadorFormStore()
     )
 }
 
-export default CuidadorFormStore
+export default ServicosFormStore

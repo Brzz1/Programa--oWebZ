@@ -2,17 +2,14 @@ import React, { Fragment, useEffect, useState } from 'react'
 import axiosClient from '../../axiosClient';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
-function CuidadorFormDestroy()
+function HabitatFormDestroy()
 {
     const navigate = useNavigate();
 
-    const [cuidador, setCuidador] = useState({
+    const [habitat, setHabitat] = useState({
         id:null,
-        nome:'',
-        CPF:'',
-        email:'',
-        contato:'',
-        endereco:'',
+        tipo:'',
+        tamanho:'',
     });
 
     const {id} = useParams();
@@ -20,9 +17,9 @@ function CuidadorFormDestroy()
     if (id)
     {
         useEffect(() => {
-            axiosClient.get(`/cuidador/show/${id}`)
+            axiosClient.get(`/habitat/show/${id}`)
             .then(({data}) =>{
-                setCuidador(data.data);
+                sethabitat(data.data);
                 console.log(data.data);
             }).catch((error)=>{
                 console.log(error);
@@ -33,11 +30,11 @@ function CuidadorFormDestroy()
     // Função do tipo Anônima
     const onSubmit = (e) => {
         e.preventDefault();
-        axiosClient.delete(`/cuidador/destroy/${id}`)
+        axiosClient.delete(`/habitat/destroy/${id}`)
             .then(() =>{
-                setCuidador({});
-                console.log('cuidador excluído com sucesso');
-                navigate('/cuidador/index')
+                setHabitat({});
+                console.log('habitat excluído com sucesso');
+                navigate('/habitat/index')
             }).catch((error)=>{
                 console.log(error);
             })
@@ -47,19 +44,17 @@ function CuidadorFormDestroy()
         <Fragment>
             <div className="display">
                 <div className="card animated fadeinDown">
-                    {cuidador.id && <h1>Exclusão de Cuidador: { cuidador.nome}</h1>}
+                    {habitat.id && <h1>Exclusão de Habitat: { habitat.tipo}</h1>}
 
                     <form onSubmit={(e)=>onSubmit(e)}>
-                        <input defaultValue={cuidador.nome} placeholder="Nome do cuidador" readOnly={true}/>
-                        <input defaultValue={cuidador.CPF} placeholder="CPF do cuidador" readOnly={true}/>
-                        <input defaultValue={cuidador.email} placeholder="Email do cuidador" readOnly={true}/>
-                        <input defaultValue={cuidador.contato} placeholder="Contato do cuidador" readOnly={true}/>
-                        <input defaultValue={cuidador.endereco} placeholder="Endereco do cuidador" readOnly={true}/>
+                        <input defaultValue={habitat.tipo} placeholder="Tipo do habitat" readOnly={true}/>
+                        <input defaultValue={habitat.tamanho} placeholder="Tamanho do habitat" readOnly={true}/>
+
                         <button className="btn btn-delete">Excluir</button>
                         <Link
                             type='button' 
                             className='btn btn-cancel'
-                            to='/cuidador/index'>
+                            to='/habitat/index'>
                                 Cancelar
                         </Link>
                     </form>
@@ -71,4 +66,4 @@ function CuidadorFormDestroy()
     )
 }
 
-export default CuidadorFormDestroy
+export default HabitatFormDestroy

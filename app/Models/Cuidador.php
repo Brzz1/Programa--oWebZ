@@ -14,7 +14,7 @@ class Medico extends Model
     protected $fillable = [
         'nome',
         'CPF',
-        'dataNascimento',
+        'email',
         'contato',
         'endereco',
     ];

@@ -124,7 +124,7 @@ class AnimalController extends Controller
             'alimentacao' => 'required|string|max:255',
             'dataCadastro' => 'required|date',
             'sexo' => 'required|string|max:255',
-            'idade' => 'required|int|max:255'.$id,
+            'idade' => 'required|int|max:255',
         ]);
 
         if ($validator->fails()){

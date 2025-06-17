@@ -22,8 +22,8 @@ class StoreConsultaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'tipo' => 'required|string|max:255',
-            'tamanho' => 'required|string|max:255',
+            'habitatId'=>'required|string|max:255',
+            'servicosId'=>'required|string|max:255',
         ];
     }
 }

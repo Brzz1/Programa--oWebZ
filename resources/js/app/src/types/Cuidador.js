@@ -4,7 +4,7 @@ export const CUIDADOR = {
     endereco: "",
     CPF: "",
     contato: "",
-    dataNascimento: "",
+    email: "",
 }
 
 export const ERROR_CUIDADOR = {
@@ -18,6 +18,6 @@ export const ERROR_CUIDADOR = {
   CPFMensagem:[],
   contato: "",
   contatoMensagem:[],
-  dataNascimento: "",
-  dataNascimentoMensagem:[],
+  email: "",
+  emailMensagem:[],
 }
